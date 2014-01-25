@@ -1,0 +1,17 @@
+---
+defaults: &defaults
+  another_option: value
+  another_key: another key value
+  first:
+    second: value
+  second:
+    another_second: another_value
+
+production:
+  <<: *defaults
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
