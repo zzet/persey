@@ -94,3 +94,7 @@ reload
 * https://github.com/kaize/configus (this gem based on configus)
 * https://github.com/markbates/configatron
 * https://github.com/railsjedi/rails_config
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/zzet/persey/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
