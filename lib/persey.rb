@@ -7,9 +7,10 @@ require "persey/adapters/yaml"
 module Persey
   class << self
     def init(environment, &block)
+      e = environment.is_a?(Symbol) ? environment : environment.to_sym
       configs  = Inspector.analize(&block)
-      defaults = Loader.load(configs, environment)
-      @config  = Builder.build(environment, defaults, &block)
+      defaults = Loader.load(configs, e)
+      @config  = Builder.build(e, defaults, &block)
     end
 
     def config

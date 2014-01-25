@@ -8,7 +8,7 @@ module Persey
     end
 
     def initialize(environment, defaults, block)
-      @current_env = environment.to_sym
+      @current_env = environment
       @config = defaults
       @envs = {}
       instance_eval(&block)
