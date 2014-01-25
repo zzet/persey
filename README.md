@@ -1,4 +1,4 @@
-# Persey [![Build Status](https://travis-ci.org/zzet/persey.png?branch=master)](https://travis-ci.org/zzet/persey) [![Gem Version](https://badge.fury.io/rb/persey.png)](http://badge.fury.io/rb/persey) [![Dependency Status](https://gemnasium.com/zzet/persey.png)](https://gemnasium.com/zzet/persey) [![Code Climate](https://codeclimate.com/github/zzet/persey.png)](https://codeclimate.com/github/zzet/persey)
+# Persey [![Build Status](https://travis-ci.org/zzet/persey.png?branch=master)](https://travis-ci.org/zzet/persey) [![Gem Version](https://badge.fury.io/rb/persey.png)](http://badge.fury.io/rb/persey) [![Dependency Status](https://gemnasium.com/zzet/persey.png)](https://gemnasium.com/zzet/persey) [![Code Climate](https://codeclimate.com/github/zzet/persey.png)](https://codeclimate.com/github/zzet/persey) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/zzet/persey/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 
 ## Summary
@@ -94,7 +94,3 @@ reload
 * https://github.com/kaize/configus (this gem based on configus)
 * https://github.com/markbates/configatron
 * https://github.com/railsjedi/rails_config
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/zzet/persey/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
