@@ -1,4 +1,4 @@
-# Persey [![Build Status](https://travis-ci.org/zzet/persey.png?branch=master)](https://travis-ci.org/zzet/persey)
+# Persey [![Build Status](https://travis-ci.org/zzet/persey.png?branch=master)](https://travis-ci.org/zzet/persey) [![Gem Version](https://badge.fury.io/rb/persey.png)](http://badge.fury.io/rb/persey)
 
 ## Summary
 
