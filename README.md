@@ -1,8 +1,8 @@
-# Persey
+# Persey [![Build Status](https://travis-ci.org/zzet/persey.png?branch=master)](https://travis-ci.org/zzet/persey)
 
 ## Summary
 
-Perseus help you easily manage the configuration, depending on the environment. 
+Persey help you easily manage the configuration, depending on the environment. 
 The main objective is to provide opportunities to reuse the
 configuration provided by the project, as the default configuration.
 
