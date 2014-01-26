@@ -3,6 +3,7 @@ require "persey/builder"
 require "persey/inspector"
 require "persey/loader"
 require "persey/adapters/yaml"
+require "persey/configus_patch"
 
 module Persey
   class << self
