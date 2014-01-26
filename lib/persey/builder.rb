@@ -1,3 +1,5 @@
+require 'configus'
+
 module Persey
   class Builder
     class << self
