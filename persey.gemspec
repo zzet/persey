@@ -19,5 +19,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "activesupport"
-  spec.add_runtime_dependency 'configs', '>= 0.0.5'
+  spec.add_runtime_dependency 'configus', '>= 0.0.5'
 end
