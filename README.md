@@ -28,6 +28,12 @@ Add this to your `Gemfile`:
 gem "persey", '>= 0.0.6'
 ```
 
+Generate default config file
+
+``` bash
+$ rails g persey:install
+```
+
 ## Examples
 
 ### Definition
