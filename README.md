@@ -108,6 +108,7 @@ Persey.init Rails.env do # set current environment
   end
 end
 ```
+If you generate Persey config with run `rails g persey:install` in your `config/application.rb` were added strings to run config initialization. If you do not run installer, you can specify of run config manually. For example:
 
 in your `config/application.rb`
 
