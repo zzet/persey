@@ -7,37 +7,75 @@ Persey help you easily manage the configuration, depending on the environment.
 The main objective is to provide opportunities to reuse the
 configuration provided by the project, as the default configuration.
 
+## Problem
+
+For the occurrence of the gem was a few prerequisites.
+
+ * Work on opensource projects that support the relevance of problem configurations, changing the appearance of new versions and functionality. 
+ * Use in the project configuration, diversity in different files, and the inability to unite all in one configuration 
+ * Desire to use sensitive data as easily as those that can be safely stored in the repository.
+ * Sometimes configuration happens in a variety of formats: yaml, json, ini 
+
+I do not want to engage in writing parsers, I want to work fine :) 
+
+This solution allows to **accumulate** different configs in one, with the **possibility of reusability** of configuration options and **simple override**. It uses an **intuitive DSL**.
+
 ## Installing
 
 Add this to your `Gemfile`:
 
-    gem "persey"
+``` ruby
+gem "persey", '>= 0.0.6'
+```
 
 ## Examples
 
 ### Definition
 
 ``` ruby
-redis_config = File.join(Rails.root, 'config', redis.yml.example)
-project_config = File.join(Rails.root, 'config', project.yml.example)
-awesome_gem_config = File.join(Rails.root, 'config', awesome_gem_config.yml)
+# Rails.root are not initialized here
+app_path = File.expand_path('../../', __FILE__)
+
+# your redis config
+redis_config = File.join(app_path, 'config', 'redis.yml.example')
+
+# your project config
+# as example - it's default options from opensource
+# you don't want redeclare then with copy default file
+project_config = File.join(app_path, 'config', 'project.yml.example')
+
+# some different environment specifed configuration options in separate config
+project_env_config = File.join(app_path, 'config', "project.#{Rails.env}.yml")
+
+# config for awesome gem
+awesome_gem_config = File.join(app_path, 'config', 'awesome_gem_config.yml')
+
+# config with secret keys
+# you don't want store this config in repository and copy to secret folder on host machine
 my_secret_key_config = '/home/user/secret/keys.yml'
 
-Persey.init :development do # set current environment
-  sourse :yaml,   redis_config,   :redis   # set specific namespace for settings
-  project :yaml,  project_config
-  project :yaml,  awesome_gem_config
-  project :yaml,  my_secret_key_config
+# Persey.init ENV["environment"] do # set current environment
+Persey.init Rails.env do # set current environment
+  sourse :yaml, redis_config,         :redis        # set specific namespace for settings (mount config in :redis key)
+  source :yaml, project_config                      # if project config and project_env_config have some options keys
+  source :yaml, project_env_config                  # last declared keys overwite before declared
+  source :yaml, awesome_gem_config    :awesome_gem  # it's good to mount unknown configs to special :namespace
+  source :yaml, my_secret_key_config  :secret       # no comments. It's secret!
 
   env :production do
     site_name 'Example'
     web do
-      domain   'example.com'
-      protocol 'https'
-      port     80
+      # domain   'example.com'   # domain described in project_env_config
+                                 # you can use them, or overwirite here
+      protocol 'https'           # we overwrite prolocol option here
+                                 # by default was 'http', but we need some little security
+      port      12345            # more, more security!
+      # and now we use configs for our options, which are not declared in any config
       uri      -> { "#{protocol}://#{domain}:#{port}" }
     end
-    site_uri   -> { web.uri }
+    
+    site_uri   -> { web.uri }    # we can re-re-use different options
+    
     email do
       pop do
         address 'pop.example.com'
@@ -65,32 +103,74 @@ Persey.init :development do # set current environment
 end
 ```
 
+in your `config/application.rb`
+
+``` ruby
+#...
+# We require gem here
+require "persey"
+require File.expand_path('../config', __FILE__)
+
+module AppName
+  # If you don't want use configs with call Persey.config
+  # you can do something like it:
+  def self.config
+    Persey.config
+  end
+  
+  class Application < Rails::Application
+    # ...
+  end
+end
+
+```
+
 ### Usage
 
-    config = Persey.config
+``` ruby
+config = Persey.config
 
-    config.site_name      # => 'Example'
-    config.web.uri        # => 'https://example.com:80'
-    config.site_uri       # => 'https://example.com:80'
-    config.email.pop.port # => 110
+config.site_name      # => 'Example'
+config.web.uri        # => 'https://example.com:80'
+config.site_uri       # => 'https://example.com:80'
+config.email.pop.port # => 110
+
+AppName.config.site_name # => 'Example'
+```
 
 ### Rails
 
-define your config in `lib/config.rb`
+define your config in `config/config.rb`
 
-    Persey.init Rails.env do
-      # settings
-    end
+``` ruby
+Persey.init Rails.env do
+  # settings
+end
+```
 
 reload
 
-    # config/environments/development.rb
-    ActionDispatch::Reloader.to_prepare do
-      load Rails.root.join('lib/config.rb')
-    end
+``` ruby
+# config/environments/development.rb
+ActionDispatch::Reloader.to_prepare do
+  load Rails.root.join('config/config.rb')
+end
+```
 
 ## Similar
 
 * https://github.com/kaize/configus (this gem based on configus)
 * https://github.com/markbates/configatron
 * https://github.com/railsjedi/rails_config
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+6. Push to the branch (`git push origin my-new-feature`)
+7. Create new Pull Request
+
+## Another help
+
+You can give me feedback with issue.
