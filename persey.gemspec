@@ -21,6 +21,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "activesupport"
   spec.add_runtime_dependency 'configus', '>= 0.0.5'
   spec.add_runtime_dependency 'yajl-ruby'
-  spec.add_runtime_dependency "toml", "~> 0.0.3"
+  spec.add_runtime_dependency "toml", "~> 0.1.0"
   spec.add_runtime_dependency "inifile"
 end
