@@ -1,0 +1,26 @@
+{
+  "header":{
+    "modified":"1 April 2001",
+    "dc:author": "John Doe"
+  },
+  "logger_root":{
+    "level":"NOTSET",
+    "handlers":"hand01"
+  },
+  "logger_parser":{
+    "level":"DEBUG",
+    "handlers":"hand01",
+    "propagate":"1",
+    "qualname":"compiler.parser"
+  },
+  "owner":{
+    "name":"John Doe",
+    "organization":"Acme Widgets Inc."
+  },
+  "database":{
+    "server":"192.0.2.62",
+    "_comment_server":"use IP address in case network name resolution is not working",
+    "port":"143",
+    "file":"payroll.dat"
+  }
+}

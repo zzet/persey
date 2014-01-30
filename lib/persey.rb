@@ -2,7 +2,9 @@ require "persey/version"
 require "persey/builder"
 require "persey/inspector"
 require "persey/loader"
+require "persey/adapters/base"
 require "persey/adapters/yaml"
+require "persey/adapters/json"
 require "persey/configus_patch"
 
 module Persey
