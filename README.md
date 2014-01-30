@@ -65,6 +65,8 @@ my_secret_key_config = '/home/user/secret/keys.yml'
 my_node_js_config = '/rest/u/apps/node/config.json'
 # And TOML
 my_berkshelf_config = File.join(app_path, 'provisioning', '.berkshelf')
+# And INI
+my_ini_config = File.join(app_path, 'provisioning', 'php.ini') # lol
 
 # Persey.init ENV["environment"] do # set current environment
 Persey.init Rails.env do # set current environment
@@ -75,6 +77,7 @@ Persey.init Rails.env do # set current environment
   source :yaml, my_secret_key_config, :secret             # no comments. It's secret!
   source :json, my_node_js_config,    :node_js_namespace
   source :toml, my_berkshelf_config,  :berkshelf_namespace
+  source :ini,  my_ini_config,        :ini_namespace
 
   env :production do
     site_name 'Example'
@@ -177,6 +180,7 @@ end
 * YAML
 * JSON
 * TOML
+* INI
 
 ## Similar
 
