@@ -5,6 +5,9 @@ app_path = File.expand_path('../../', __FILE__)
 
 Persey.init Rails.env do # set current environment
   # source :yaml, config_path, :mount_namespace
+  # source :json, config_path, :mount_namespace
+  # source :toml, config_path, :mount_namespace
+  # source :ini,  config_path, :mount_namespace
 
   env :default do
     # declare here some config option for all environments
