@@ -172,6 +172,12 @@ ActionDispatch::Reloader.to_prepare do
 end
 ```
 
+## Supported config formats
+
+* YAML
+* JSON
+* TOML
+
 ## Similar
 
 * https://github.com/kaize/configus (this gem based on configus)
