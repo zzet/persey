@@ -65,8 +65,8 @@ Persey.init Rails.env do # set current environment
   sourse :yaml, redis_config,         :redis        # set specific namespace for settings (mount config in :redis key)
   source :yaml, project_config                      # if project config and project_env_config have some options keys
   source :yaml, project_env_config                  # last declared keys overwite before declared
-  source :yaml, awesome_gem_config    :awesome_gem  # it's good to mount unknown configs to special :namespace
-  source :yaml, my_secret_key_config  :secret       # no comments. It's secret!
+  source :yaml, awesome_gem_config,   :awesome_gem  # it's good to mount unknown configs to special :namespace
+  source :yaml, my_secret_key_config, :secret       # no comments. It's secret!
 
   env :production do
     site_name 'Example'
