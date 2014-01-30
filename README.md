@@ -60,6 +60,12 @@ awesome_gem_config = File.join(app_path, 'config', 'awesome_gem_config.yml')
 # you don't want store this config in repository and copy to secret folder on host machine
 my_secret_key_config = '/home/user/secret/keys.yml'
 
+# We support not only YAML
+# Also JSON
+my_node_js_config = '/rest/u/apps/node/config.json'
+# And TOML
+my_berkshelf_config = File.join(app_path, 'provisioning', '.berkshelf')
+
 # Persey.init ENV["environment"] do # set current environment
 Persey.init Rails.env do # set current environment
   sourse :yaml, redis_config,         :redis              # set specific namespace for settings (mount config in :redis key)
@@ -68,6 +74,7 @@ Persey.init Rails.env do # set current environment
   source :yaml, awesome_gem_config,   :awesome_gem        # it's good to mount unknown configs to special :namespace
   source :yaml, my_secret_key_config, :secret             # no comments. It's secret!
   source :json, my_node_js_config,    :node_js_namespace
+  source :toml, my_berkshelf_config,  :berkshelf_namespace
 
   env :production do
     site_name 'Example'

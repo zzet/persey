@@ -5,6 +5,7 @@ require "persey/loader"
 require "persey/adapters/base"
 require "persey/adapters/yaml"
 require "persey/adapters/json"
+require "persey/adapters/toml"
 require "persey/configus_patch"
 
 module Persey
