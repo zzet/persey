@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Persey by zzet</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Persey</h1>
+        <p class="header">Persey help you easily manage the configuration, depending on the environment. </p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/zzet/persey/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/zzet/persey/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/zzet/persey">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/zzet">zzet</a></p>
+
+
+      </header>
+      <section>
+        <h1>
+<a name="persey-----" class="anchor" href="#persey-----"><span class="octicon octicon-link"></span></a>Persey <a href="https://travis-ci.org/zzet/persey"><img src="https://travis-ci.org/zzet/persey.png?branch=master" alt="Build Status"></a> <a href="http://badge.fury.io/rb/persey"><img src="https://badge.fury.io/rb/persey.png" alt="Gem Version"></a> <a href="https://gemnasium.com/zzet/persey"><img src="https://gemnasium.com/zzet/persey.png" alt="Dependency Status"></a> <a href="https://codeclimate.com/github/zzet/persey"><img src="https://codeclimate.com/github/zzet/persey.png" alt="Code Climate"></a> <a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/zzet/persey/trend.png" alt="Bitdeli Badge"></a>
+</h1>
+
+<h2>
+<a name="summary" class="anchor" href="#summary"><span class="octicon octicon-link"></span></a>Summary</h2>
+
+<p>Persey help you easily manage the configuration, depending on the environment. 
+The main objective is to provide opportunities to reuse the
+configuration provided by the project, as the default configuration.</p>
+
+<h2>
+<a name="problem" class="anchor" href="#problem"><span class="octicon octicon-link"></span></a>Problem</h2>
+
+<p>For the occurrence of the gem was a few prerequisites.</p>
+
+<ul>
+<li>Work on opensource projects that support the relevance of problem configurations, changing the appearance of new versions and functionality. </li>
+<li>Use in the project configuration, diversity in different files, and the inability to unite all in one configuration </li>
+<li>Desire to use sensitive data as easily as those that can be safely stored in the repository.</li>
+<li>Sometimes configuration happens in a variety of formats: yaml, json, ini </li>
+</ul><p>I do not want to engage in writing parsers, I want to work fine :) </p>
+
+<p>This solution allows to <strong>accumulate</strong> different configs in one, with the <strong>possibility of reusability</strong> of configuration options and <strong>simple override</strong>. It uses an <strong>intuitive DSL</strong>.</p>
+
+<h2>
+<a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
+
+<p>Add this to your <code>Gemfile</code>:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">gem</span> <span class="s2">"persey"</span><span class="p">,</span> <span class="s1">'&gt;= 0.0.7'</span>
+</pre></div>
+
+<p>Generate default config file</p>
+
+<div class="highlight highlight-bash"><pre><span class="nv">$ </span>rails g persey:install
+</pre></div>
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<h3>
+<a name="definition" class="anchor" href="#definition"><span class="octicon octicon-link"></span></a>Definition</h3>
+
+<div class="highlight highlight-ruby"><pre><span class="c1"># Rails.root are not initialized here</span>
+<span class="n">app_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">'../../'</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+
+<span class="c1"># your redis config</span>
+<span class="n">redis_config</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">app_path</span><span class="p">,</span> <span class="s1">'config'</span><span class="p">,</span> <span class="s1">'redis.yml.example'</span><span class="p">)</span>
+
+<span class="c1"># your project config</span>
+<span class="c1"># as example - it's default options from opensource</span>
+<span class="c1"># you don't want redeclare then with copy default file</span>
+<span class="n">project_config</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">app_path</span><span class="p">,</span> <span class="s1">'config'</span><span class="p">,</span> <span class="s1">'project.yml.example'</span><span class="p">)</span>
+
+<span class="c1"># some different environment specifed configuration options in separate config</span>
+<span class="n">project_env_config</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">app_path</span><span class="p">,</span> <span class="s1">'config'</span><span class="p">,</span> <span class="s2">"project.</span><span class="si">#{</span><span class="no">Rails</span><span class="o">.</span><span class="n">env</span><span class="si">}</span><span class="s2">.yml"</span><span class="p">)</span>
+
+<span class="c1"># config for awesome gem</span>
+<span class="n">awesome_gem_config</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">app_path</span><span class="p">,</span> <span class="s1">'config'</span><span class="p">,</span> <span class="s1">'awesome_gem_config.yml'</span><span class="p">)</span>
+
+<span class="c1"># config with secret keys</span>
+<span class="c1"># you don't want store this config in repository and copy to secret folder on host machine</span>
+<span class="n">my_secret_key_config</span> <span class="o">=</span> <span class="s1">'/home/user/secret/keys.yml'</span>
+
+<span class="c1"># We support not only YAML</span>
+<span class="c1"># Also JSON</span>
+<span class="n">my_node_js_config</span> <span class="o">=</span> <span class="s1">'/rest/u/apps/node/config.json'</span>
+<span class="c1"># And TOML</span>
+<span class="n">my_berkshelf_config</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">app_path</span><span class="p">,</span> <span class="s1">'provisioning'</span><span class="p">,</span> <span class="s1">'.berkshelf'</span><span class="p">)</span>
+<span class="c1"># And INI</span>
+<span class="n">my_ini_config</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">app_path</span><span class="p">,</span> <span class="s1">'provisioning'</span><span class="p">,</span> <span class="s1">'php.ini'</span><span class="p">)</span> <span class="c1"># lol</span>
+
+<span class="c1"># Persey.init ENV["environment"] do # set current environment</span>
+<span class="no">Persey</span><span class="o">.</span><span class="n">init</span> <span class="no">Rails</span><span class="o">.</span><span class="n">env</span> <span class="k">do</span> <span class="c1"># set current environment</span>
+  <span class="n">sourse</span> <span class="ss">:yaml</span><span class="p">,</span> <span class="n">redis_config</span><span class="p">,</span>         <span class="ss">:redis</span>              <span class="c1"># set specific namespace for settings (mount config in :redis key)</span>
+  <span class="n">source</span> <span class="ss">:yaml</span><span class="p">,</span> <span class="n">project_config</span>                            <span class="c1"># if project config and project_env_config have some options keys</span>
+  <span class="n">source</span> <span class="ss">:yaml</span><span class="p">,</span> <span class="n">project_env_config</span>                        <span class="c1"># last declared keys overwite before declared</span>
+  <span class="n">source</span> <span class="ss">:yaml</span><span class="p">,</span> <span class="n">awesome_gem_config</span><span class="p">,</span>   <span class="ss">:awesome_gem</span>        <span class="c1"># it's good to mount unknown configs to special :namespace</span>
+  <span class="n">source</span> <span class="ss">:yaml</span><span class="p">,</span> <span class="n">my_secret_key_config</span><span class="p">,</span> <span class="ss">:secret</span>             <span class="c1"># no comments. It's secret!</span>
+  <span class="n">source</span> <span class="ss">:json</span><span class="p">,</span> <span class="n">my_node_js_config</span><span class="p">,</span>    <span class="ss">:node_js_namespace</span>
+  <span class="n">source</span> <span class="ss">:toml</span><span class="p">,</span> <span class="n">my_berkshelf_config</span><span class="p">,</span>  <span class="ss">:berkshelf_namespace</span>
+  <span class="n">source</span> <span class="ss">:ini</span><span class="p">,</span>  <span class="n">my_ini_config</span><span class="p">,</span>        <span class="ss">:ini_namespace</span>
+
+  <span class="n">env</span> <span class="ss">:production</span> <span class="k">do</span>
+    <span class="n">site_name</span> <span class="s1">'Example'</span>
+    <span class="n">web</span> <span class="k">do</span>
+      <span class="c1"># domain   'example.com'   # domain described in project_env_config</span>
+                                 <span class="c1"># you can use them, or overwirite here</span>
+      <span class="n">protocol</span> <span class="s1">'https'</span>           <span class="c1"># we overwrite prolocol option here</span>
+                                 <span class="c1"># by default was 'http', but we need some little security</span>
+      <span class="n">port</span>      <span class="mi">12345</span>            <span class="c1"># more, more security!</span>
+      <span class="c1"># and now we use configs for our options, which are not declared in any config</span>
+      <span class="n">uri</span>      <span class="o">-&gt;</span> <span class="p">{</span> <span class="s2">"</span><span class="si">#{</span><span class="n">protocol</span><span class="si">}</span><span class="s2">://</span><span class="si">#{</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">#{</span><span class="n">port</span><span class="si">}</span><span class="s2">"</span> <span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="n">site_uri</span>   <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">web</span><span class="o">.</span><span class="n">uri</span> <span class="p">}</span>    <span class="c1"># we can re-re-use different options</span>
+
+    <span class="n">email</span> <span class="k">do</span>
+      <span class="n">pop</span> <span class="k">do</span>
+        <span class="n">address</span> <span class="s1">'pop.example.com'</span>
+        <span class="n">port</span>    <span class="mi">110</span>
+      <span class="k">end</span>
+      <span class="n">smtp</span> <span class="k">do</span>
+        <span class="n">address</span> <span class="s1">'smtp.example.com'</span>
+        <span class="n">port</span>    <span class="mi">25</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">env</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:parent</span> <span class="o">=&gt;</span> <span class="ss">:production</span> <span class="k">do</span>
+    <span class="n">web</span> <span class="k">do</span>
+      <span class="n">domain</span>   <span class="s1">'localhost'</span>
+      <span class="n">protocol</span> <span class="s1">'http'</span>
+      <span class="n">port</span>      <span class="mi">9292</span>
+    <span class="k">end</span>
+    <span class="n">email</span> <span class="k">do</span>
+      <span class="n">smtp</span> <span class="k">do</span>
+        <span class="n">address</span> <span class="s1">'smpt.text.example.com'</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>If you generate Persey config with run <code>rails g persey:install</code> in your <code>config/application.rb</code> were added strings to run config initialization. If you do not run installer, you can specify of run config manually. For example:</p>
+
+<p>in your <code>config/application.rb</code></p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1">#...</span>
+<span class="c1"># We require gem here</span>
+<span class="nb">require</span> <span class="s2">"persey"</span>
+<span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s1">'../config'</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+
+<span class="k">module</span> <span class="nn">AppName</span>
+  <span class="c1"># If you don't want use configs with call Persey.config</span>
+  <span class="c1"># you can do something like it:</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">config</span>
+    <span class="no">Persey</span><span class="o">.</span><span class="n">config</span>
+  <span class="k">end</span>
+
+  <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Application</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+</pre></div>
+
+<h3>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<div class="highlight highlight-ruby"><pre><span class="n">config</span> <span class="o">=</span> <span class="no">Persey</span><span class="o">.</span><span class="n">config</span>
+
+<span class="n">config</span><span class="o">.</span><span class="n">site_name</span>      <span class="c1"># =&gt; 'Example'</span>
+<span class="n">config</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">uri</span>        <span class="c1"># =&gt; 'https://example.com:80'</span>
+<span class="n">config</span><span class="o">.</span><span class="n">site_uri</span>       <span class="c1"># =&gt; 'https://example.com:80'</span>
+<span class="n">config</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">pop</span><span class="o">.</span><span class="n">port</span> <span class="c1"># =&gt; 110</span>
+
+<span class="no">AppName</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">site_name</span> <span class="c1"># =&gt; 'Example'</span>
+</pre></div>
+
+<h3>
+<a name="rails" class="anchor" href="#rails"><span class="octicon octicon-link"></span></a>Rails</h3>
+
+<p>define your config in <code>config/config.rb</code></p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">Persey</span><span class="o">.</span><span class="n">init</span> <span class="no">Rails</span><span class="o">.</span><span class="n">env</span> <span class="k">do</span>
+  <span class="c1"># settings</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>reload</p>
+
+<div class="highlight highlight-ruby"><pre><span class="c1"># config/environments/development.rb</span>
+<span class="no">ActionDispatch</span><span class="o">::</span><span class="no">Reloader</span><span class="o">.</span><span class="n">to_prepare</span> <span class="k">do</span>
+  <span class="nb">load</span> <span class="no">Rails</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'config/config.rb'</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+
+<h2>
+<a name="supported-config-formats" class="anchor" href="#supported-config-formats"><span class="octicon octicon-link"></span></a>Supported config formats</h2>
+
+<ul>
+<li>YAML</li>
+<li>JSON</li>
+<li>TOML</li>
+<li>INI</li>
+</ul><h2>
+<a name="similar" class="anchor" href="#similar"><span class="octicon octicon-link"></span></a>Similar</h2>
+
+<ul>
+<li>
+<a href="https://github.com/kaize/configus">https://github.com/kaize/configus</a> (this gem based on configus)</li>
+<li><a href="https://github.com/markbates/configatron">https://github.com/markbates/configatron</a></li>
+<li><a href="https://github.com/railsjedi/rails_config">https://github.com/railsjedi/rails_config</a></li>
+</ul><h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Added some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol><h2>
+<a name="another-help" class="anchor" href="#another-help"><span class="octicon octicon-link"></span></a>Another help</h2>
+
+<p>You can give me feedback with issue.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
