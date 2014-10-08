@@ -3,7 +3,7 @@
 
 ## Summary
 
-Persey help you easily manage the configuration, depending on the environment. 
+Persey help you easily manage the configuration, depending on the environment.
 The main objective is to provide opportunities to reuse the
 configuration provided by the project, as the default configuration.
 
@@ -11,12 +11,12 @@ configuration provided by the project, as the default configuration.
 
 For the occurrence of the gem was a few prerequisites.
 
- * Work on opensource projects that support the relevance of problem configurations, changing the appearance of new versions and functionality. 
- * Use in the project configuration, diversity in different files, and the inability to unite all in one configuration 
+ * Work on opensource projects that support the relevance of problem configurations, changing the appearance of new versions and functionality.
+ * Use in the project configuration, diversity in different files, and the inability to unite all in one configuration
  * Desire to use sensitive data as easily as those that can be safely stored in the repository.
- * Sometimes configuration happens in a variety of formats: yaml, json, ini 
+ * Sometimes configuration happens in a variety of formats: yaml, json, ini
 
-I do not want to engage in writing parsers, I want to work fine :) 
+I do not want to engage in writing parsers, I want to work fine :)
 
 This solution allows to **accumulate** different configs in one, with the **possibility of reusability** of configuration options and **simple override**. It uses an **intuitive DSL**.
 
@@ -25,7 +25,7 @@ This solution allows to **accumulate** different configs in one, with the **poss
 Add this to your `Gemfile`:
 
 ``` ruby
-gem "persey", '>= 0.0.7'
+gem "persey", '>= 0.0.8'
 ```
 
 Generate default config file
@@ -90,9 +90,9 @@ Persey.init Rails.env do # set current environment
       # and now we use configs for our options, which are not declared in any config
       uri      -> { "#{protocol}://#{domain}:#{port}" }
     end
-    
+
     site_uri   -> { web.uri }    # we can re-re-use different options
-    
+
     email do
       pop do
         address 'pop.example.com'
@@ -135,7 +135,7 @@ module AppName
   def self.config
     Persey.config
   end
-  
+
   class Application < Rails::Application
     # ...
   end
