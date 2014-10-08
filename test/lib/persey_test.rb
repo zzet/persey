@@ -20,6 +20,10 @@ class PerseyTest < TestCase
           first "first value"
           second "second value"
         end
+
+        first do
+          testss -> { second }
+        end
       end
     end
   end
@@ -31,6 +35,9 @@ class PerseyTest < TestCase
   def test_correct_config
     @config = Persey.config
     assert { @config.option.first == "first value" }
+    assert { @config.first.testss == "foo value" }
+    assert { @config.first.second == "foo value" }
+    assert { @config.namespace.another_key == "another key value" }
     assert { @config.namespace.another_key == "another key value" }
     assert { @config.key == "key value" }
     assert { @config.json_config.owner.name == "John Doe" }
