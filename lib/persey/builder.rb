@@ -33,7 +33,7 @@ module Persey
         current_config = deep_merge(parent_config, current_config)
       end
 
-      current_config = @config.deep_merge(current_config)
+      current_config = deep_merge(@config, current_config)
     end
 
     private
