@@ -70,7 +70,7 @@ my_ini_config = File.join(app_path, 'provisioning', 'php.ini') # lol
 
 # Persey.init ENV["environment"] do # set current environment
 Persey.init Rails.env do # set current environment
-  sourse :yaml, redis_config,         :redis              # set specific namespace for settings (mount config in :redis key)
+  source :yaml, redis_config,         :redis              # set specific namespace for settings (mount config in :redis key)
   source :yaml, project_config                            # if project config and project_env_config have some options keys
   source :yaml, project_env_config                        # last declared keys overwite before declared
   source :yaml, awesome_gem_config,   :awesome_gem        # it's good to mount unknown configs to special :namespace
