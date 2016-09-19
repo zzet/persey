@@ -1,0 +1,7 @@
+version: '2'
+services:
+  gem:
+    build: .
+    command: tail -f /dev/null
+    volumes:
+      - .:/gem
