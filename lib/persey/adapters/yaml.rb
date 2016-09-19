@@ -1,4 +1,5 @@
 require 'yaml'
+require 'erb'
 
 module Persey
   module Adapters
