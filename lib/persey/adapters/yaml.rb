@@ -6,7 +6,7 @@ module Persey
       class << self
         def load(file, env)
           begin
-            raw_hash = YAML.load_file(file)
+            raw_hash = YAML.load(ERB.new(File.read(file)).result)
             symbolize_keys(raw_hash)
           rescue
             puts "FATAL: Error while process config from file '#{file}'"
