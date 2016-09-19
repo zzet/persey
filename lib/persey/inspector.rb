@@ -12,7 +12,7 @@ module Persey
       def source(source_type, config_file, namespace = nil)
         begin
           klass = "persey/adapters/#{source_type}".camelize.constantize
-          @sources << { class: klass, file: config_file, namespace: namespace } if File.exists?(config_file)
+          @sources << { class: klass, file: config_file, namespace: namespace } if File.exist?(config_file)
         rescue
           binding.pry
         end
