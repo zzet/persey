@@ -10,12 +10,11 @@ module Persey
       end
 
       def source(source_type, config_file, namespace = nil)
-        begin
-          klass = "persey/adapters/#{source_type}".camelize.constantize
-          @sources << { class: klass, file: config_file, namespace: namespace } if File.exist?(config_file)
-        rescue
-          binding.pry
-        end
+        override_config_file = config_file + '.override'
+
+        klass = "persey/adapters/#{source_type}".camelize.constantize
+        @sources << { class: klass, file: config_file, namespace: namespace } if File.exist?(config_file)
+        @sources << { class: klass, file: override_config_file, namespace: namespace } if File.exist?(override_config_file)
       end
 
       def env(*args)
