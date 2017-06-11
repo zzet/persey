@@ -1,0 +1,5 @@
+---
+option: good line
+hash: good hash
+  val: hash val
+failed_string: <%= ENV.fetch('SOME_VAR') %>

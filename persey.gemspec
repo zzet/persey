@@ -18,9 +18,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "activesupport"
+  spec.add_runtime_dependency 'activesupport'
   spec.add_runtime_dependency 'configus', '>= 0.0.5'
   spec.add_runtime_dependency 'yajl-ruby'
-  spec.add_runtime_dependency "toml", "~> 0.1.0"
-  spec.add_runtime_dependency "inifile"
+  spec.add_runtime_dependency 'toml', '~> 0.1.0'
+  spec.add_runtime_dependency 'inifile'
+
+  spec.add_development_dependency 'simplecov'
 end

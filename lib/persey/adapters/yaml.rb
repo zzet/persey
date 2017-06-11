@@ -2,6 +2,8 @@ require 'yaml'
 require 'erb'
 
 module Persey
+  class MissingEnvVariable < RuntimeError; end
+
   module Adapters
     class Yaml < Persey::Adapters::Base
       class << self
@@ -9,8 +11,13 @@ module Persey
           begin
             raw_hash = YAML.load(ERB.new(File.read(file)).result)
             symbolize_keys(raw_hash)
-          rescue
-            puts "FATAL: Error while process config from file '#{file}'"
+          rescue KeyError => e
+            _, line, method = /\(erb\):(\d+):in `(.*)'/.match(e.backtrace[0]).to_a
+            if method == 'fetch'
+              raise MissingEnvVariable.new("Check line ##{line} in #{file}")
+            else
+              raise e
+            end
           end
         end
       end

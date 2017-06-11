@@ -1,6 +1,8 @@
 require 'active_support/inflector'
 
 module Persey
+  class MissingConfigFile < RuntimeError; end
+
   class Inspector
     class << self
       def analize(&block)
@@ -10,10 +12,12 @@ module Persey
       end
 
       def source(source_type, config_file, namespace = nil)
-        override_config_file = config_file + '.override'
+        raise MissingConfigFile.new("Can't find #{source_type} config: #{config_file}") unless File.exist?(config_file)
 
         klass = "persey/adapters/#{source_type}".camelize.constantize
-        @sources << { class: klass, file: config_file, namespace: namespace } if File.exist?(config_file)
+        @sources << { class: klass, file: config_file, namespace: namespace }
+
+        override_config_file = config_file + '.override'
         @sources << { class: klass, file: override_config_file, namespace: namespace } if File.exist?(override_config_file)
       end
 

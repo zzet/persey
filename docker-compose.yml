@@ -4,4 +4,4 @@ services:
     build: .
     command: tail -f /dev/null
     volumes:
-      - .:/gem
+      - .:/app
