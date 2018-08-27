@@ -1,4 +1,4 @@
-require 'yajl'
+require 'json/stream'
 
 module Persey
   module Adapters
@@ -7,8 +7,7 @@ module Persey
         def load(file, env)
           begin
             json = File.new(file, 'r')
-            parser = Yajl::Parser.new
-            raw_hash = parser.parse(json)
+            raw_hash = JSON::Stream::Parser.parse(json)
             symbolize_keys(raw_hash)
           rescue
             puts "FATAL: Error while process config from file '#{file}'"
