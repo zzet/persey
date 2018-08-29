@@ -25,7 +25,7 @@ This solution allows to **accumulate** different configs in one, with the **poss
 Add this to your `Gemfile`:
 
 ``` ruby
-gem "persey", '>= 0.0.11'
+gem "persey", '>= 1.0.0'
 ```
 
 Generate default config file
