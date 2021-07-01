@@ -1,4 +1,4 @@
-# Persey [![Build Status](https://travis-ci.org/zzet/persey.svg?branch=master)](https://travis-ci.org/zzet/persey) [![Gem Version](https://badge.fury.io/rb/persey.svg)](http://badge.fury.io/rb/persey) [![Dependency Status](https://gemnasium.com/zzet/persey.svg)](https://gemnasium.com/zzet/persey) [![Code Climate](https://codeclimate.com/github/zzet/persey.svg)](https://codeclimate.com/github/zzet/persey) [![Downloads count](https://img.shields.io/gem/dt/persey.svg)](https://img.shields.io/gem/dt/persey.svg)
+# Persey [![Build Status](https://travis-ci.org/zzet/persey.svg?branch=master)](https://travis-ci.org/zzet/persey) [![Gem Version](https://badge.fury.io/rb/persey.svg)](http://badge.fury.io/rb/persey)[![Code Climate](https://codeclimate.com/github/zzet/persey.svg)](https://codeclimate.com/github/zzet/persey) [![Downloads count](https://img.shields.io/gem/dt/persey.svg)](https://img.shields.io/gem/dt/persey.svg)
 
 
 ## Summary
