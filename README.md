@@ -67,6 +67,8 @@ my_node_js_config = '/rest/u/apps/node/config.json'
 my_berkshelf_config = File.join(app_path, 'provisioning', '.berkshelf')
 # And INI
 my_ini_config = File.join(app_path, 'provisioning', 'php.ini') # lol
+# And AWS SSM secure string (we assume you're using JSON inside)
+my_ssm_config = '/some/ssm/parameter/path.json'
 
 # Persey.init ENV["environment"] do # set current environment
 Persey.init Rails.env do # set current environment
@@ -78,6 +80,7 @@ Persey.init Rails.env do # set current environment
   source :json, my_node_js_config,    :node_js_namespace
   source :toml, my_berkshelf_config,  :berkshelf_namespace
   source :ini,  my_ini_config,        :ini_namespace
+  source :ssm,  my_ssm_config,        :ssm_namespace
 
   env :production do
     site_name 'Example'
@@ -181,6 +184,7 @@ end
 * JSON
 * TOML
 * INI
+* AWS SSM Secure string (json inside)
 
 ## Similar
 
