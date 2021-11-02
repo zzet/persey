@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Persey do
@@ -8,6 +10,7 @@ describe Persey do
       plain_json_config = File.join(fixtures_path, 'json_config.json')
       plain_toml_config = File.join(fixtures_path, 'toml_config.toml')
       plain_ini_config = File.join(fixtures_path, 'ini_config.ini')
+      plain_ssm_config = '/some/ssm/parameter/path.json'
 
       Persey.init :production do
         source :yaml, plain_config
@@ -15,11 +18,12 @@ describe Persey do
         source :json, plain_json_config,  :json_config
         source :toml, plain_toml_config,  :toml_config
         source :ini,  plain_ini_config,   :ini_config
+        source :ssm,  plain_ssm_config,   :ssm_config, { client: Aws::SSM::Client.new(stub_responses: true) }
 
         env :production do
           option do
-            first "first value"
-            second "second value"
+            first 'first value'
+            second 'second value'
           end
 
           first do
@@ -44,6 +48,7 @@ describe Persey do
       expect(@config.json_config.owner.name).to eq('John Doe')
       expect(@config.toml_config.owner.name).to eq('Tom Preston-Werner')
       expect(@config.ini_config.section1.var1).to eq('foo')
+      expect(@config.ssm_config.value).to eq('PSParameterValue')
     end
   end
 

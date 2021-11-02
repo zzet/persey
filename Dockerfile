@@ -1,4 +1,4 @@
-FROM ruby:2.4.1
+FROM ruby:2.7.1
 
 ENV APP_HOME /app
 WORKDIR $APP_HOME

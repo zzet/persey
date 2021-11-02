@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/inflector'
 
 module Persey
@@ -11,14 +13,17 @@ module Persey
         @sources
       end
 
-      def source(source_type, config_file, namespace = nil)
-        raise MissingConfigFile.new("Can't find #{source_type} config: #{config_file}") unless File.exist?(config_file)
-
+      def source(source_type, config_file, namespace = nil, opts = {})
         klass = "persey/adapters/#{source_type}".camelize.constantize
-        @sources << { class: klass, file: config_file, namespace: namespace }
+
+        unless klass.config_exists?(config_file, opts: opts)
+          raise MissingConfigFile, "Can't find #{source_type} config: #{config_file}"
+        end
+
+        @sources << { class: klass, file: config_file, namespace: namespace, opts: opts }
 
         override_config_file = config_file + '.override'
-        @sources << { class: klass, file: override_config_file, namespace: namespace } if File.exist?(override_config_file)
+        @sources << { class: klass, file: override_config_file, namespace: namespace, opts: opts } if klass.config_exists?(override_config_file, opts: opts)
       end
 
       def env(*args)

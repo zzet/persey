@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Persey
   class Loader
     attr_accessor :configs
@@ -18,7 +20,7 @@ module Persey
 
       configs.each do |pdc|
         klass = pdc[:class]
-        raw_config = klass.load(pdc[:file], env)
+        raw_config = klass.load(pdc[:file], env, opts: pdc[:opts])
         env_config = raw_config[env].nil? ? raw_config : raw_config[env]
 
         n = pdc[:namespace]
