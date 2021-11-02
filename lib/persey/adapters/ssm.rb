@@ -25,6 +25,8 @@ module Persey
         def config_exists?(path, opts: {})
           ssm = ssm_client(opts)
           ssm.get_parameter(name: path, with_decryption: true).parameter.nil? == false
+        rescue Aws::SSM::Errors::ParameterNotFound
+          false
         end
 
         private
