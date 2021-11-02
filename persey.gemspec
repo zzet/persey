@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'json-stream'
   spec.add_runtime_dependency 'toml', '~> 0.1.0'
   spec.add_runtime_dependency 'inifile'
+  spec.add_runtime_dependency 'aws-sdk-ssm', '~> 1.120'
 
   spec.add_development_dependency 'simplecov'
 end

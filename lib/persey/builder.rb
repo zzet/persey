@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'configus'
 
 module Persey
@@ -20,7 +22,7 @@ module Persey
       e = env || @current_env
       edata = @envs[e]
 
-      raise ArgumentError, "Undefined environment '#{ env }" if edata.nil?
+      raise ArgumentError, "Undefined environment '#{env}'" if edata.nil?
 
       current_config = {}
       if edata[:block]
@@ -33,7 +35,7 @@ module Persey
         current_config = deep_merge(parent_config, current_config)
       end
 
-      current_config = @config.deep_merge(current_config)
+      @config.deep_merge(current_config)
     end
 
     private
@@ -41,14 +43,14 @@ module Persey
     def env(env, options = {}, &block)
       env = env.to_sym
 
-      raise ArgumentError, "Double definition of environment '#{ env }'" if @envs.has_key?(env)
+      raise ArgumentError, "Double definition of environment '#{env}'" if @envs.has_key?(env)
 
       @envs[env] = { options: options }
       @envs[env][:block] = block if block_given?
     end
 
     def deep_merge(target, source)
-      source.each_pair do |k,v|
+      source.each_pair do |k, v|
         tv = target[k]
         target[k] = tv.is_a?(Hash) && v.is_a?(Hash) ? deep_merge(tv, v) : v
       end

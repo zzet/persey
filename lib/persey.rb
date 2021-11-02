@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'persey/version'
 require 'persey/builder'
 require 'persey/inspector'
@@ -7,6 +9,7 @@ require 'persey/adapters/yaml'
 require 'persey/adapters/json'
 require 'persey/adapters/toml'
 require 'persey/adapters/ini'
+require 'persey/adapters/ssm'
 require 'persey/configus_patch'
 
 module Persey
@@ -19,7 +22,7 @@ module Persey
     end
 
     def config
-      raise RuntimeError, "Please, init config before usage" if @config.nil?
+      raise 'Please, init config before usage' if @config.nil?
 
       @config
     end
